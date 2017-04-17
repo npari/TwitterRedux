@@ -17,9 +17,9 @@ class TweetsViewController: UIViewController {
 
         TwitterClient.sharedInstance?.homeTimeline(success: { (tweets:[Tweet]) in
             self.tweets = tweets
-            for tweet in tweets {
-                print(tweet.text)
-            }
+//            for tweet in tweets {
+//                print(tweet.text)
+//            }
             }, failure: { (error: Error) in
                 
         })
@@ -32,6 +32,10 @@ class TweetsViewController: UIViewController {
     }
     
 
+    
+    @IBAction func onLogOut(_ sender: AnyObject) {
+        
+    }
     /*
     // MARK: - Navigation
 

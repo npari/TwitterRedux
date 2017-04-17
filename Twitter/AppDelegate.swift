@@ -17,6 +17,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        if User.currentUser != nil {
+            print("There is a current user\n\n")
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")
+            self.window?.rootViewController = viewController
+        }
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: User.UserDidLogOut), object: nil, queue: OperationQueue.main) { (notification: Notification) in
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateInitialViewController()
+            self.window?.rootViewController = viewController
+        }
         return true
     }
 
@@ -45,38 +56,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         let twitterClient = TwitterClient.sharedInstance
         twitterClient?.handleUrl(url: url)
-//        let requestToken = BDBOAuth1Credential(queryString: url.query!)
-//        
-//        twitterClient?.fetchAccessToken(withPath: "oauth/access_token", method: "POST", requestToken: requestToken, success: { (accessToken: BDBOAuth1Credential?) in
-//            
-//            //Get the user's details
-//            twitterClient?.currentAccount(success: { (user: User) in
-//               
-//                print("Name: \(user.name!)")
-//                print("Screen name: \(user.screenname!)")
-//                print("profile url: \(user.profileUrl!)")
-//                print("Description: \(user.tagline!)")
-//                
-//
-//                }, failure: { (error: Error) in
-//                    print(error)
-//            })
-//            
-//            //Get the user's tweets
-//            twitterClient?.homeTimeline(success: { (tweets: [Tweet]) in
-//                    for tweet in tweets {
-//                        print("\(tweet.text!)")
-//                    }
-//                }, failure: { (error: Error) in
-//                    print(error)
-//            })
-//
-//            
-//            }, failure: { (error: Error?) in
-//                print(error)
-//        })
-//        
-        print(url.description)
         return true
     }
 
