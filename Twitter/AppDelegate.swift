@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import BDBOAuth1Manager
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -39,6 +40,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        let baseURL: NSURL = NSURL(string: "https://api.twitter.com")!
+        let consumerKey: String = "c23ErS86Q45ISyuvfSoFqTKaf"
+        let consumerSecret: String = "UvMdJL45Sx4D1CIQmyaAPJb7iboagO2caAqdx6ziuqXcnja0ak"
+        let requestToken = BDBOAuth1Credential(queryString: url.query!)
+       
+        
+        let twitterClient =
+            BDBOAuth1SessionManager(baseURL: baseURL as URL!, consumerKey: consumerKey, consumerSecret: consumerSecret)
+        twitterClient?.fetchAccessToken(withPath: "oauth/access_token", method: "POST", requestToken: requestToken, success: { (accessToken: BDBOAuth1Credential?) in
+            print(accessToken)
+            
+            twitterClient?.get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+                print(response!)
+                }, failure: { (task: URLSessionDataTask?, error: Error) in
+                    
+            })
+            
+            twitterClient?.get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+                let tweets = response as! [NSDictionary]
+                for tweet in tweets {
+                    print(tweet["text"]!)
+                }
+                
+                }, failure: { (task: URLSessionDataTask?, error: Error) in
+                    
+            })
+            
+            }, failure: { (error: Error?) in
+                print(error)
+        })
+        
+        print(url.description)
+        return true
     }
 
 
