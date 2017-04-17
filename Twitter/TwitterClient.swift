@@ -18,6 +18,7 @@ class TwitterClient: BDBOAuth1SessionManager {
     static let callbackURL: NSURL = NSURL(string: "twitterdemo://oauth")!
     static let sharedInstance = TwitterClient(baseURL: baseURL as URL!, consumerKey: consumerKey, consumerSecret: consumerSecret)
     
+    
     var loginSuccess: (() -> ())?
     var loginFailure: ((Error) -> ())?
     
@@ -40,7 +41,6 @@ class TwitterClient: BDBOAuth1SessionManager {
     func currentAccount(success: @escaping (User) -> (), failure: @escaping (Error) -> ()) {
         
         get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
-            print(response!)
             
             let userDictionary = response as! NSDictionary
             let user = User(dictionary: userDictionary)
@@ -71,21 +71,28 @@ class TwitterClient: BDBOAuth1SessionManager {
                 failure(error!)
                 
         })
-        
+    }
+    
+    func logout() {
+        User.currentUser = nil
+        deauthorize()
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: User.UserDidLogOut), object: nil)
     }
     
     func handleUrl(url: URL) {
         let requestToken = BDBOAuth1Credential(queryString: url.query!)
         fetchAccessToken(withPath: "oauth/access_token", method: "POST", requestToken: requestToken, success: { (accessToken: BDBOAuth1Credential?) in
             
-            self.loginSuccess?()
+            self.currentAccount(success: { (user: User) in
+                User.currentUser = user
+                self.loginSuccess?()
+                }, failure: { (error: Error) in
+                    self.loginFailure?(error)
+            })
+            
             
             }, failure: { (error: Error?) in
                 self.loginFailure?(error!)
         })
-        
-        print(url.description)
-
-        
     }
 }
