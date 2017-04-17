@@ -17,17 +17,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-//        if User.currentUser != nil {
-//            print("There is a current user\n\n")
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//            let viewController = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")
-//            self.window?.rootViewController = viewController
-//        }
-//        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: User.UserDidLogOut), object: nil, queue: OperationQueue.main) { (notification: Notification) in
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//            let viewController = storyboard.instantiateInitialViewController()
-//            self.window?.rootViewController = viewController
-//        }
+        if User.currentUser != nil {
+            print("There is a current user\n\n")
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")
+            self.window?.rootViewController = viewController
+        }
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: User.UserDidLogOut), object: nil, queue: OperationQueue.main) { (notification: Notification) in
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateInitialViewController()
+            self.window?.rootViewController = viewController
+        }
         return true
     }
 
