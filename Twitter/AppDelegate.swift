@@ -43,54 +43,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        
-        let baseURL: NSURL = NSURL(string: "https://api.twitter.com")!
-        let consumerKey: String = "c23ErS86Q45ISyuvfSoFqTKaf"
-        let consumerSecret: String = "UvMdJL45Sx4D1CIQmyaAPJb7iboagO2caAqdx6ziuqXcnja0ak"
-        let requestToken = BDBOAuth1Credential(queryString: url.query!)
-       
-        
-        let twitterClient =
-            BDBOAuth1SessionManager(baseURL: baseURL as URL!, consumerKey: consumerKey, consumerSecret: consumerSecret)
-        twitterClient?.fetchAccessToken(withPath: "oauth/access_token", method: "POST", requestToken: requestToken, success: { (accessToken: BDBOAuth1Credential?) in
-            print(accessToken)
-            
-            //Get the user details
-            twitterClient?.get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
-                print(response!)
-                
-                let userDictionary = response as! NSDictionary
-                
-//                print("user: \(user)")
-                
-                let user = User(dictionary: userDictionary)
-                
-                print("Name: \(user.name!)")
-                print("Screen name: \(user.screenname!)")
-                print("profile url: \(user.profileUrl!)")
-                print("Description: \(user.tagline!)")
-
-                }, failure: { (task: URLSessionDataTask?, error: Error) in
-                    
-            })
-            
-            //Get the user's tweets
-            twitterClient?.get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) -> Void in
-                
-                let tweetDictionaries = response as! [NSDictionary]
-                let tweets = Tweet.tweetsWithArray(dictionaries: tweetDictionaries)
-                
-                for tweet in tweets {
-                    print("\(tweet.text!)")
-                }
-            }, failure: { (task: URLSessionDataTask?, error: Error) in
-                    
-            })
-            
-            }, failure: { (error: Error?) in
-                print(error)
-        })
-        
+        let twitterClient = TwitterClient.sharedInstance
+        twitterClient?.handleUrl(url: url)
+//        let requestToken = BDBOAuth1Credential(queryString: url.query!)
+//        
+//        twitterClient?.fetchAccessToken(withPath: "oauth/access_token", method: "POST", requestToken: requestToken, success: { (accessToken: BDBOAuth1Credential?) in
+//            
+//            //Get the user's details
+//            twitterClient?.currentAccount(success: { (user: User) in
+//               
+//                print("Name: \(user.name!)")
+//                print("Screen name: \(user.screenname!)")
+//                print("profile url: \(user.profileUrl!)")
+//                print("Description: \(user.tagline!)")
+//                
+//
+//                }, failure: { (error: Error) in
+//                    print(error)
+//            })
+//            
+//            //Get the user's tweets
+//            twitterClient?.homeTimeline(success: { (tweets: [Tweet]) in
+//                    for tweet in tweets {
+//                        print("\(tweet.text!)")
+//                    }
+//                }, failure: { (error: Error) in
+//                    print(error)
+//            })
+//
+//            
+//            }, failure: { (error: Error?) in
+//                print(error)
+//        })
+//        
         print(url.description)
         return true
     }
