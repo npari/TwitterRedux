@@ -11,20 +11,28 @@ import UIKit
 class TweetsViewController: UIViewController, UITableViewDataSource {
 
     var tweets : [Tweet] = []
+    var refreshControl: UIRefreshControl!
     
     @IBOutlet weak var tweetsTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        addRefreshControl()
         tweetsTableView.dataSource = self
         tweetsTableView.rowHeight = UITableViewAutomaticDimension
         tweetsTableView.estimatedRowHeight = 120
+        getTweets()
+        // Do any additional setup after loading the view.
+    }
+    
+    func getTweets() {
         TwitterClient.sharedInstance?.homeTimeline(success: { (tweets:[Tweet]) in
             self.tweets = tweets
             self.tweetsTableView.reloadData()
+            self.refreshControl.endRefreshing()
             }, failure: { (error: Error) in
+                self.refreshControl.endRefreshing()
                 
         })
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -60,6 +68,22 @@ class TweetsViewController: UIViewController, UITableViewDataSource {
             detailViewController.tweet = self.tweets[(indexPath?.row)!]
         }
     }
+    
+    func addRefreshControl() {
+        
+        //Initialize a UIRefreshControl
+        refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(TweetsViewController.refreshControlAction), for: UIControlEvents.valueChanged)
+        //add refresh control to table view
+        tweetsTableView.insertSubview(refreshControl, at: 0)
+    }
+    
+    
+    func refreshControlAction() {
+        getTweets()
+    }
+    
     /*
     // MARK: - Navigation
 
