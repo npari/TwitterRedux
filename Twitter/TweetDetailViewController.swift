@@ -22,17 +22,42 @@ class TweetDetailViewController: UIViewController {
     @IBOutlet weak var favoritesCountLabel: UILabel!
     @IBOutlet weak var retweetsCountLabel: UILabel!
     @IBOutlet weak var dateTimeLabel: UILabel!
+    
+    @IBOutlet weak var replyImage: UIButton!
+    
+    
+    @IBOutlet weak var retweetImage: UIButton!
+    
+    
+    @IBOutlet weak var favoriteImage: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print(tweet)
-        tweetLabel.text = tweet.text
-        if let user = tweet.user {
+        updateTweet()
+        // Do any additional setup after loading the view.
+    }
+    
+    func updateTweet() {
+        var currentTweet = tweet
+        if let tweetedStatus = currentTweet?.retweetedStatus {
+            if currentTweet?.user?.id == User.currentUser?.id {
+                currentTweet = tweetedStatus
+                self.retweetImage.imageView?.image = UIImage(named: "retweet-on")
+            }
+        }
+        tweetLabel.text = currentTweet?.text
+        if let user = currentTweet?.user {
             nameLabel.text = user.name
             usernameLabel.text = user.screenname
             profileImage.setImageWith(user.profileUrl as! URL)
         }
-        
-        // Do any additional setup after loading the view.
+        if tweet.favorited {
+//            self.favoriteImage.image = UIImage(named: "like-on")
+        }
+//        if tweet.retweeted {
+//            self.retweetImage.imageView?.image = UIImage(named: "retweet-on")
+//        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,7 +68,26 @@ class TweetDetailViewController: UIViewController {
     @IBAction func onHomeTapped(_ sender: AnyObject) {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    
+    
+    @IBAction func onReplyImageTapped(_ sender: AnyObject) {
+    }
+    
 
+    @IBAction func onRetweetImageTapped(_ sender: AnyObject) {
+        let twitterClient = TwitterClient.sharedInstance
+        twitterClient?.retweet(tweet: self.tweet, success: { (newTweet: Tweet) in
+            self.tweet = newTweet
+            self.updateTweet()
+            }, failure: { (error: Error) in
+                print(error.localizedDescription)
+        })
+    }
+    
+    
+    @IBAction func onFavoriteImageTapped(_ sender: AnyObject) {
+    }
     /*
     // MARK: - Navigation
 
