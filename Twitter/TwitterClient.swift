@@ -95,4 +95,17 @@ class TwitterClient: BDBOAuth1SessionManager {
                 self.loginFailure?(error!)
         })
     }
+    
+
+    func tweet(tweetText: String, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        let tweetTextEncoded = tweetText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+        let url = "1.1/statuses/update.json?status=" + tweetTextEncoded!
+        post(url, parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            let tweetResponse = response as! NSDictionary
+            let tweet = Tweet(dictionary: tweetResponse)
+            success(tweet)
+        }) { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+        }
+    }
 }

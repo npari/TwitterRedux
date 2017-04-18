@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class NewTweetViewController: UIViewController {
 
     @IBOutlet weak var profileImage: UIImageView!
@@ -39,6 +40,16 @@ class NewTweetViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
 
+    @IBAction func onTweet(_ sender: AnyObject) {
+        let twitterClient = TwitterClient.sharedInstance
+        let tweetText = self.tweetComposeView.text
+        twitterClient?.tweet(tweetText: tweetText!, success: { (tweet: Tweet) in
+            print("Successful tweet \(tweet.text)")
+            }, failure: { (error: Error) in
+                print(error.localizedDescription)
+        })
+        self.dismiss(animated: true, completion: nil)
+    }
     /*
     // MARK: - Navigation
 
