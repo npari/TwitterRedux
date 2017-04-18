@@ -50,6 +50,16 @@ class TweetsViewController: UIViewController, UITableViewDataSource {
     @IBAction func onLogOut(_ sender: AnyObject) {
         TwitterClient.sharedInstance?.logout()
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let identifier = segue.identifier
+        if identifier == "tweetDetail" {
+            let detailViewController = segue.destination as! TweetDetailViewController
+            let cell = sender as! TweetCell
+            let indexPath = self.tweetsTableView.indexPath(for: cell)
+            detailViewController.tweet = self.tweets[(indexPath?.row)!]
+        }
+    }
     /*
     // MARK: - Navigation
 
