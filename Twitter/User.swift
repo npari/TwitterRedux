@@ -12,6 +12,7 @@ class User: NSObject {
     
     static let UserDidLogOut = "userDidLogOut"
     
+    var id: String?
     var name: String?
     var screenname: String?
     var profileUrl: NSURL?
@@ -23,7 +24,7 @@ class User: NSObject {
         self.dictionary = dictionary
         name = dictionary["name"] as? String
         screenname = dictionary["screen_name"] as? String
-        
+        id = dictionary["id_str"] as? String
         let profileUrlString = dictionary["profile_image_url_https"] as? String
         if let profileUrlString = profileUrlString {
             profileUrl = NSURL(string: profileUrlString)
