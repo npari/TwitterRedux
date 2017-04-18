@@ -15,7 +15,6 @@ class NewTweetViewController: UIViewController {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var username: UILabel!
     @IBOutlet weak var tweetComposeView: UITextView!
-    
     var user: User!
     
     
@@ -24,7 +23,7 @@ class NewTweetViewController: UIViewController {
         if let user = User.currentUser {
             profileImage.setImageWith(user.profileUrl as! URL)
             name.text = user.name
-            username.text = user.screenname
+            username.text = "@"+user.screenname!
         }
         tweetComposeView.becomeFirstResponder()
         

@@ -68,7 +68,7 @@
             </objects>
             <point key="canvasLocation" x="32.799999999999997" y="38.23088455772114"/>
         </scene>
-        <!--Tweets-->
+        <!--Home-->
         <scene sceneID="mOW-Vn-X0q">
             <objects>
                 <viewController id="wvi-Qn-5Ki" customClass="TweetsViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
@@ -144,7 +144,7 @@
                             <constraint firstItem="UEF-3i-i1G" firstAttribute="height" secondItem="QJv-O5-1Xv" secondAttribute="height" id="r6S-WW-vgY"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Tweets" id="rXG-TS-dAG">
+                    <navigationItem key="navigationItem" title="Home" id="rXG-TS-dAG">
                         <barButtonItem key="leftBarButtonItem" title="Log Out" style="done" id="LtK-R7-Qsi">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
@@ -264,7 +264,10 @@
                                     <constraint firstAttribute="height" constant="50" id="rUW-1f-bY8"/>
                                 </constraints>
                                 <items>
-                                    <navigationItem title="Title" id="W7N-Sj-cut"/>
+                                    <navigationItem title="Tweet" id="W7N-Sj-cut">
+                                        <barButtonItem key="leftBarButtonItem" title="Home" id="sdH-bW-cqd"/>
+                                        <barButtonItem key="rightBarButtonItem" title="Reply" id="kk6-CY-qdj"/>
+                                    </navigationItem>
                                 </items>
                             </navigationBar>
                         </subviews>
@@ -354,12 +357,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DEl-Pj-0sX">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@johndoe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DEl-Pj-0sX">
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5dq-ir-lgM">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5dq-ir-lgM">
+                                <frame key="frameInset" minX="24" minY="56" width="335" height="131"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="wFO-4y-Z1J"/>
@@ -367,19 +371,12 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="@johndoe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I2L-th-K3I">
-                                <frame key="frameInset" minX="137" minY="8" width="57" height="15"/>
-                                <fontDescription key="fontDescription" type="italicSystem" pointSize="10"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="I2L-th-K3I" firstAttribute="leading" secondItem="T3L-93-TNv" secondAttribute="trailing" constant="2" id="3i7-CB-oiO"/>
                             <constraint firstItem="T3L-93-TNv" firstAttribute="top" secondItem="JGz-Tj-D3b" secondAttribute="top" id="EVL-h5-G4r"/>
-                            <constraint firstItem="I2L-th-K3I" firstAttribute="top" secondItem="jtC-aS-CTt" secondAttribute="bottom" constant="8" id="N2O-0b-evh"/>
                             <constraint firstItem="DEl-Pj-0sX" firstAttribute="top" secondItem="T3L-93-TNv" secondAttribute="bottom" constant="4" id="PF7-kX-9Xb"/>
+                            <constraint firstAttribute="trailing" secondItem="5dq-ir-lgM" secondAttribute="trailing" constant="8" id="RJP-Pw-MlK"/>
                             <constraint firstItem="T3L-93-TNv" firstAttribute="leading" secondItem="JGz-Tj-D3b" secondAttribute="trailing" constant="8" id="Uf4-xQ-QGD"/>
                             <constraint firstItem="JGz-Tj-D3b" firstAttribute="leading" secondItem="4Lq-WP-9MX" secondAttribute="leadingMargin" constant="8" id="VBl-QY-8Ll"/>
                             <constraint firstItem="5dq-ir-lgM" firstAttribute="leading" secondItem="JGz-Tj-D3b" secondAttribute="leading" id="Vnr-de-hZ9"/>
@@ -410,7 +407,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qpu-hF-FsM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3545" y="-296"/>
+            <point key="canvasLocation" x="3544.8000000000002" y="-296.40179910044981"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="9JE-4R-HKf">
