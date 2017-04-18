@@ -53,7 +53,9 @@ class TweetDetailViewController: UIViewController {
             profileImage.setImageWith(user.profileUrl as! URL)
         }
         if tweet.favorited {
-//            self.favoriteImage.image = UIImage(named: "like-on")
+            self.favoriteImage.imageView?.image = UIImage(named: "like-on")
+        } else {
+            self.favoriteImage.imageView?.image = UIImage(named: "like-off")
         }
 //        if tweet.retweeted {
 //            self.retweetImage.imageView?.image = UIImage(named: "retweet-on")
@@ -87,6 +89,24 @@ class TweetDetailViewController: UIViewController {
     
     
     @IBAction func onFavoriteImageTapped(_ sender: AnyObject) {
+        let twitterClient = TwitterClient.sharedInstance
+        if !self.tweet.favorited {
+            twitterClient?.favorite(tweet: self.tweet, success: { (newTweet: Tweet) in
+                newTweet.favorited = true
+                self.tweet = newTweet
+                self.updateTweet()
+                }, failure: { (error: Error) in
+                    print(error.localizedDescription)
+            })
+        } else {
+            twitterClient?.dislike(tweet: self.tweet, success: { (newTweet: Tweet) in
+                newTweet.favorited = false
+                self.tweet = newTweet
+                self.updateTweet()
+                }, failure: { (error: Error) in
+                    print(error.localizedDescription)
+            })
+        }
     }
     /*
     // MARK: - Navigation

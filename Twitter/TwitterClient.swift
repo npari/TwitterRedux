@@ -119,5 +119,30 @@ class TwitterClient: BDBOAuth1SessionManager {
             failure(error)
         }
     }
+    
+
+    func favorite(tweet: Tweet, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        let url = "1.1/favorites/create.json?id=" + tweet.id!
+        post(url, parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            let tweetResponse = response as! NSDictionary
+            let tweet = Tweet(dictionary: tweetResponse)
+            success(tweet)
+        }) { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+        }
+    }
+    
+    func dislike(tweet: Tweet, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        let url = "1.1/favorites/destroy.json?id=" + tweet.id!
+        post(url, parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            let tweetResponse = response as! NSDictionary
+            let tweet = Tweet(dictionary: tweetResponse)
+            success(tweet)
+        }) { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+        }
+    }
+
+
 
 }
