@@ -74,6 +74,7 @@ class TweetDetailViewController: UIViewController {
     
     
     @IBAction func onReplyImageTapped(_ sender: AnyObject) {
+        self.performSegue(withIdentifier: "replyTweet", sender: nil)
     }
     
 
