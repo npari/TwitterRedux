@@ -57,6 +57,8 @@ class TweetDetailViewController: UIViewController {
         } else {
             self.favoriteImage.imageView?.image = UIImage(named: "like-off")
         }
+        self.favoritesCountLabel.text = String(tweet.favoritesCount)
+        self.retweetsCountLabel.text = String(tweet.retweetCount)
 //        if tweet.retweeted {
 //            self.retweetImage.imageView?.image = UIImage(named: "retweet-on")
 //        }
@@ -93,7 +95,9 @@ class TweetDetailViewController: UIViewController {
         let twitterClient = TwitterClient.sharedInstance
         if !self.tweet.favorited {
             twitterClient?.favorite(tweet: self.tweet, success: { (newTweet: Tweet) in
+                // favorite status is not reflected immediately from twitter. so setting them manually in 200 response
                 newTweet.favorited = true
+                newTweet.favoritesCount = newTweet.favoritesCount + 1
                 self.tweet = newTweet
                 self.updateTweet()
                 }, failure: { (error: Error) in
