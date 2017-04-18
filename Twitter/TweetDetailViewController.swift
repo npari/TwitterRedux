@@ -108,6 +108,16 @@ class TweetDetailViewController: UIViewController {
             })
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let identifier = segue.identifier
+        if identifier == "replyTweet" {
+            let navController = segue.destination as! UINavigationController
+            let newTweetController = navController.topViewController as! NewTweetViewController
+            newTweetController.inReplyToUser = self.tweet.user
+            newTweetController.inReplyToStatus = self.tweet
+        }
+    }
     /*
     // MARK: - Navigation
 

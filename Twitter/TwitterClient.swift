@@ -97,9 +97,12 @@ class TwitterClient: BDBOAuth1SessionManager {
     }
     
 
-    func tweet(tweetText: String, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+    func tweet(tweetText: String, inResponseToTweet:Tweet?, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
         let tweetTextEncoded = tweetText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
-        let url = "1.1/statuses/update.json?status=" + tweetTextEncoded!
+        var url = "1.1/statuses/update.json?status=" + tweetTextEncoded!
+        if let inResponseToTweet = inResponseToTweet {
+            url.append("&in_reply_to_status_id=" + inResponseToTweet.id!)
+        }
         post(url, parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
             let tweetResponse = response as! NSDictionary
             let tweet = Tweet(dictionary: tweetResponse)

@@ -16,7 +16,8 @@ class NewTweetViewController: UIViewController {
     @IBOutlet weak var username: UILabel!
     @IBOutlet weak var tweetComposeView: UITextView!
     var user: User!
-    
+    var inReplyToStatus: Tweet?
+    var inReplyToUser: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,9 @@ class NewTweetViewController: UIViewController {
             profileImage.setImageWith(user.profileUrl as! URL)
             name.text = user.name
             username.text = "@"+user.screenname!
+        }
+        if let inReplyToUser = inReplyToUser {
+            tweetComposeView.text = "@" + inReplyToUser.screenname!
         }
         tweetComposeView.becomeFirstResponder()
         
@@ -42,7 +46,7 @@ class NewTweetViewController: UIViewController {
     @IBAction func onTweet(_ sender: AnyObject) {
         let twitterClient = TwitterClient.sharedInstance
         let tweetText = self.tweetComposeView.text
-        twitterClient?.tweet(tweetText: tweetText!, success: { (tweet: Tweet) in
+        twitterClient?.tweet(tweetText: tweetText!, inResponseToTweet: self.inReplyToStatus, success: { (tweet: Tweet) in
             print("Successful tweet \(tweet.text)")
             }, failure: { (error: Error) in
                 print(error.localizedDescription)

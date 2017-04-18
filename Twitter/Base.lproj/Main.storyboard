@@ -252,7 +252,11 @@
                                                 <action selector="onHomeTapped:" destination="8V9-OX-QMg" id="7dh-1X-eGf"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Reply" id="kk6-CY-qdj"/>
+                                        <barButtonItem key="rightBarButtonItem" title="Reply" id="kk6-CY-qdj">
+                                            <connections>
+                                                <segue destination="zgb-or-kd7" kind="presentation" identifier="replyTweet" id="P34-2S-VU2"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -426,7 +430,7 @@
             <objects>
                 <navigationController storyboardIdentifier="TweetsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="BKW-5r-t3I" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="gk9-L4-vkh">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gk9-L4-vkh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.15242756387791123" green="0.4729029998112233" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -447,7 +451,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zgb-or-kd7" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="SCU-3W-Bd8">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="SCU-3W-Bd8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.0" green="0.49912674562934578" blue="0.97948717948717945" alpha="1" colorSpace="calibratedRGB"/>
@@ -472,4 +476,7 @@
         <image name="reply" width="65" height="72"/>
         <image name="retweet-off" width="75" height="72"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="P34-2S-VU2"/>
+    </inferredMetricsTieBreakers>
 </document>
