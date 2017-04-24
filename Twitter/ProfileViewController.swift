@@ -10,11 +10,47 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
+    var userId: String!
+    var screenName: String!
+    
+    @IBOutlet weak var profileBannerImage: UIImageView!
+    
+    @IBOutlet weak var profileImage: UIImageView!
+    
+    @IBOutlet weak var userName: UILabel!
+    
+    @IBOutlet weak var screenNameLabel: UILabel!
+    
+    
+    @IBOutlet weak var tweetsCountLabel: UILabel!
+    
+    @IBOutlet weak var followingCountLabel: UILabel!
+    
+    @IBOutlet weak var followersCountLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        getUserProfile()
 
         // Do any additional setup after loading the view.
     }
+    
+    func getUserProfile() {
+        TwitterClient.sharedInstance?.userProfile(userId: userId, screenName: screenName, success: { (user: User) in
+                print("User received")
+            self.userName.text = user.name
+            self.screenNameLabel.text = "@" + user.screenname!
+            self.profileImage.setImageWith(user.profileUrl as! URL)
+            self.profileBannerImage.setImageWith(user.profileBannerUrl as! URL)
+            self.tweetsCountLabel.text = String(user.statusesCount)
+            self.followingCountLabel.text = String(user.friendsCount)
+            self.followersCountLabel.text = String(user.followersCount)
+            }, failure: { (error: Error) in
+                print(error.localizedDescription)
+        })
+    }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

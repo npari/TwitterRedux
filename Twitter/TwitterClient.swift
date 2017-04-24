@@ -65,6 +65,19 @@ class TwitterClient: BDBOAuth1SessionManager {
         
     }
     
+    func userProfile(userId: String, screenName: String, success: @escaping (User) -> (), failure: @escaping (Error) -> ()) {
+        let url = "1.1/users/show.json?user_id=" + userId + "&screen_name=" + screenName
+        get(url, parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            
+            let userDictionary = response as! NSDictionary
+            let user = User(dictionary: userDictionary)
+            success(user)
+            
+            }, failure: { (task: URLSessionDataTask?, error: Error) in
+                failure(error)
+        })
+    }
+    
     //Login
     func login(success: @escaping () -> (), failure: @escaping (Error) -> ()) {
         
