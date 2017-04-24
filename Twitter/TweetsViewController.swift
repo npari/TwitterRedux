@@ -12,6 +12,7 @@ class TweetsViewController: UIViewController, UITableViewDataSource {
 
     var tweets : [Tweet] = []
     var refreshControl: UIRefreshControl!
+    var mentionsView: Bool?
     
     @IBOutlet weak var tweetsTableView: UITableView!
     override func viewDidLoad() {
@@ -25,14 +26,25 @@ class TweetsViewController: UIViewController, UITableViewDataSource {
     }
     
     func getTweets() {
-        TwitterClient.sharedInstance?.homeTimeline(success: { (tweets:[Tweet]) in
-            self.tweets = tweets
-            self.tweetsTableView.reloadData()
-            self.refreshControl.endRefreshing()
-            }, failure: { (error: Error) in
+        if mentionsView != nil && mentionsView! {
+            TwitterClient.sharedInstance?.mentionsTimeline(success: { (tweets:[Tweet]) in
+                self.tweets = tweets
+                self.tweetsTableView.reloadData()
                 self.refreshControl.endRefreshing()
-                
-        })
+                }, failure: { (error: Error) in
+                    self.refreshControl.endRefreshing()
+                    
+            })
+
+        } else {
+            TwitterClient.sharedInstance?.homeTimeline(success: { (tweets:[Tweet]) in
+                self.tweets = tweets
+                self.tweetsTableView.reloadData()
+                self.refreshControl.endRefreshing()
+                }, failure: { (error: Error) in
+                    self.refreshControl.endRefreshing()
+            })
+        }
     }
 
     override func didReceiveMemoryWarning() {
