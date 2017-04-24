@@ -15,7 +15,7 @@ class HamburgerViewController: UIViewController {
     @IBOutlet weak var leftMarginConstraint: NSLayoutConstraint!
     
     var originalLeftMargin: CGFloat!
-    var menuViewController: UIViewController! {
+    var menuViewController: UINavigationController! {
         didSet(oldMenuViewController) {
             view.layoutIfNeeded()
             

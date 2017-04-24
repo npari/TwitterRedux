@@ -31,10 +31,11 @@ class LoginViewController: UIViewController {
 //            self.performSegue(withIdentifier: "hamburgerSegue", sender: nil)
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let hamburgerViewController = storyboard.instantiateViewController(withIdentifier: "hamburgerViewController") as! HamburgerViewController
-
-            let menuViewController = storyboard.instantiateViewController(withIdentifier: "menuViewController") as! MenuViewController
+            let menuNavViewController = storyboard.instantiateViewController(withIdentifier: "menuNavigationController") as! UINavigationController
+            let menuViewController = menuNavViewController.topViewController as! MenuViewController
+//            let menuViewController = storyboard.instantiateViewController(withIdentifier: "menuViewController") as! MenuViewController
             menuViewController.hamburgerViewController = hamburgerViewController
-            hamburgerViewController.menuViewController = menuViewController
+            hamburgerViewController.menuViewController = menuNavViewController
             
             self.present(hamburgerViewController, animated: true, completion: nil)
             
