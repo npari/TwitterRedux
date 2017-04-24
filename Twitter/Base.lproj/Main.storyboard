@@ -193,7 +193,7 @@
                                             <frame key="frameInset" width="375" height="98"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ii3-uy-1Qh">
+                                                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ii3-uy-1Qh">
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="Uxm-KK-oeN"/>
                                                         <constraint firstAttribute="height" constant="40" id="gwo-Fc-20e"/>
@@ -675,7 +675,13 @@
                             <constraint firstAttribute="trailingMargin" secondItem="6TQ-UR-nhB" secondAttribute="trailing" constant="-16" id="mk8-7i-N0g"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="T0J-8o-UCl"/>
+                    <navigationItem key="navigationItem" id="T0J-8o-UCl">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="5Ic-ZY-kAh">
+                            <connections>
+                                <action selector="onBackButtonPressed:" destination="lUl-ex-Nyu" id="pgd-Wb-S17"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="followersCountLabel" destination="bF3-P3-Gp4" id="fVe-lc-Uaw"/>
                         <outlet property="followingCountLabel" destination="h5f-cR-OIv" id="OV3-EE-vlt"/>
