@@ -33,11 +33,15 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
 //        profileViewController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController")
         timelineViewController = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")
-//        mentionsViewController = storyboard.instantiateViewController(withIdentifier: "MentionsViewController")
+        let mentionsViewController = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController") as! UINavigationController
+        let mentionsController = mentionsViewController.topViewController as! TweetsViewController
+        mentionsController.mentionsView = true
+//        mentionsViewController = storyboard.instantiateViewController(withIdentifier: "tweetsViewController") as! TweetsViewController
+//        mentionsViewController.mentionsView = true
 //        loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
 //        viewControllers.append(profileViewController)
         viewControllers.append(timelineViewController)
-//        viewControllers.append(mentionsViewController)
+        viewControllers.append(mentionsViewController)
 //        viewControllers.append(loginViewController)
         
 //        viewControllers.append(profileViewController)
@@ -49,7 +53,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
