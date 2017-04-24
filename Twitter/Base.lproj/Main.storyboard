@@ -560,7 +560,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0mD-U6-Fbd">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0mD-U6-Fbd" userLabel="basicView">
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Hog-Y1-yDF">
                                         <constraints>
@@ -651,12 +651,28 @@
                                     <constraint firstItem="di4-Me-Fss" firstAttribute="leading" secondItem="0mD-U6-Fbd" secondAttribute="leading" constant="20" id="ufD-I1-3Oz"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6TQ-UR-nhB" userLabel="tweetsView">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wLX-I3-bnx" userLabel="lineSeparator">
+                                <color key="backgroundColor" red="0.56007612179487176" green="0.56007612179487176" blue="0.56007612179487176" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="HFU-jn-fCV"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="6TQ-UR-nhB" firstAttribute="top" secondItem="wLX-I3-bnx" secondAttribute="bottom" constant="3" id="1Pj-R4-jys"/>
+                            <constraint firstItem="wLX-I3-bnx" firstAttribute="leading" secondItem="dFt-mg-qCU" secondAttribute="leadingMargin" id="6qT-Vj-mia"/>
                             <constraint firstItem="0mD-U6-Fbd" firstAttribute="leading" secondItem="dFt-mg-qCU" secondAttribute="leading" id="8Tr-mr-XAf"/>
+                            <constraint firstItem="6TQ-UR-nhB" firstAttribute="leading" secondItem="dFt-mg-qCU" secondAttribute="leadingMargin" constant="-16" id="KsY-tN-IDc"/>
+                            <constraint firstItem="wLX-I3-bnx" firstAttribute="trailing" secondItem="dFt-mg-qCU" secondAttribute="trailingMargin" id="QGh-zW-373"/>
+                            <constraint firstItem="wLX-I3-bnx" firstAttribute="top" secondItem="0mD-U6-Fbd" secondAttribute="bottom" id="UOo-Rz-Y1V"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="6TQ-UR-nhB" secondAttribute="bottom" id="atu-fX-gtm"/>
                             <constraint firstAttribute="trailing" secondItem="0mD-U6-Fbd" secondAttribute="trailing" id="eaH-wf-1vv"/>
                             <constraint firstItem="0mD-U6-Fbd" firstAttribute="top" secondItem="kgP-Oa-Yxo" secondAttribute="bottom" id="kO3-x3-LJb"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="6TQ-UR-nhB" secondAttribute="trailing" constant="-16" id="mk8-7i-N0g"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="T0J-8o-UCl"/>
@@ -667,6 +683,7 @@
                         <outlet property="profileImage" destination="di4-Me-Fss" id="Nm1-Kh-hT5"/>
                         <outlet property="screenNameLabel" destination="itN-5u-eGY" id="mYf-US-DV0"/>
                         <outlet property="tweetsCountLabel" destination="Mm8-oE-NPi" id="BcB-V8-YMi"/>
+                        <outlet property="tweetsView" destination="6TQ-UR-nhB" id="nd7-QZ-2o1"/>
                         <outlet property="userName" destination="5DS-EQ-gNP" id="MkK-yq-WLk"/>
                     </connections>
                 </viewController>
