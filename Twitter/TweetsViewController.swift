@@ -13,6 +13,9 @@ class TweetsViewController: UIViewController, UITableViewDataSource {
     var tweets : [Tweet] = []
     var refreshControl: UIRefreshControl!
     var mentionsView: Bool?
+    var userId: String!
+    var screenName: String!
+
     
     @IBOutlet weak var tweetsTableView: UITableView!
     override func viewDidLoad() {
@@ -26,7 +29,15 @@ class TweetsViewController: UIViewController, UITableViewDataSource {
     }
     
     func getTweets() {
-        if mentionsView != nil && mentionsView! {
+        if userId != nil && screenName != nil {
+            TwitterClient.sharedInstance?.userTimeline(userId: userId, screenName: screenName, success: { (tweets:[Tweet]) in
+                self.tweets = tweets
+                self.tweetsTableView.reloadData()
+                self.refreshControl.endRefreshing()
+                }, failure: { (error: Error) in
+                    self.refreshControl.endRefreshing()
+            })
+        } else if mentionsView != nil && mentionsView! {
             TwitterClient.sharedInstance?.mentionsTimeline(success: { (tweets:[Tweet]) in
                 self.tweets = tweets
                 self.tweetsTableView.reloadData()
@@ -61,6 +72,8 @@ class TweetsViewController: UIViewController, UITableViewDataSource {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tweetCell = tweetsTableView.dequeueReusableCell(withIdentifier: "tweetCell", for: indexPath) as! TweetCell
         tweetCell.tweet = tweets[indexPath.row]
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.goToUserProfileAction(sender:)))
+        tweetCell.profileImage.addGestureRecognizer(tapGestureRecognizer)
         return tweetCell
     }
     
@@ -94,6 +107,21 @@ class TweetsViewController: UIViewController, UITableViewDataSource {
     
     func refreshControlAction() {
         getTweets()
+    }
+    
+    func goToUserProfileAction(sender: UITapGestureRecognizer) {
+        let location = sender.location(in: self.tweetsTableView)
+        let indexPath = self.tweetsTableView.indexPathForRow(at: location)
+        if let indexPath = indexPath {
+            let tweet = self.tweets[indexPath.row]
+            let user = tweet.user
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let profileViewController = storyboard.instantiateViewController(withIdentifier: "ProfileNavigationViewController") as! UINavigationController
+            let profileView = profileViewController.topViewController as! ProfileViewController
+            profileView.userId = user?.id
+            profileView.screenName = user?.screenname
+            self.present(profileViewController, animated: true, completion: nil)
+        }
     }
     
     /*

@@ -31,6 +31,7 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet weak var tweetsView: UIView!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         getUserProfile()
@@ -44,12 +45,16 @@ class ProfileViewController: UIViewController {
             self.userName.text = user.name
             self.screenNameLabel.text = "@" + user.screenname!
             self.profileImage.setImageWith(user.profileUrl as! URL)
-            self.profileBannerImage.setImageWith(user.profileBannerUrl as! URL)
+            if let profileBannerUrl = user.profileBannerUrl {
+                self.profileBannerImage.setImageWith(profileBannerUrl as URL)
+            }
             self.tweetsCountLabel.text = String(user.statusesCount)
             self.followingCountLabel.text = String(user.friendsCount)
             self.followersCountLabel.text = String(user.followersCount)
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let tweetsViewController = storyboard.instantiateViewController(withIdentifier: "tweetsViewController") as! TweetsViewController
+            tweetsViewController.userId = self.userId
+            tweetsViewController.screenName = self.screenName
             self.addChildViewController(tweetsViewController)
             tweetsViewController.view.frame = self.tweetsView.frame
             self.view.addSubview(tweetsViewController.view)
@@ -59,6 +64,9 @@ class ProfileViewController: UIViewController {
     }
     
     
+    @IBAction func onBackButtonPressed(_ sender: AnyObject) {
+        self.dismiss(animated: true, completion: nil)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
