@@ -60,7 +60,7 @@
         <!--Menu View Controller-->
         <scene sceneID="36v-XW-Scb">
             <objects>
-                <viewController id="wCy-IL-Xxs" customClass="MenuViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="menuViewController" id="wCy-IL-Xxs" customClass="MenuViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JA3-Y8-MOl"/>
                         <viewControllerLayoutGuide type="bottom" id="80N-oM-cvu"/>
@@ -69,9 +69,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="92" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="q1i-IP-15T">
-                                <frame key="frameInset" width="375" height="664"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="92" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="q1i-IP-15T">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuCell" rowHeight="92" id="CK9-qW-ks8" customClass="MenuCell" customModule="Twitter" customModuleProvider="target">
@@ -98,14 +96,21 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="q1i-IP-15T" secondAttribute="trailing" id="Lr1-w9-YX9"/>
+                            <constraint firstItem="q1i-IP-15T" firstAttribute="height" secondItem="3YX-04-5d2" secondAttribute="height" id="jgj-Pp-WqJ"/>
+                            <constraint firstItem="q1i-IP-15T" firstAttribute="leading" secondItem="3YX-04-5d2" secondAttribute="leading" id="k8c-vX-mcY"/>
+                            <constraint firstItem="q1i-IP-15T" firstAttribute="top" secondItem="JA3-Y8-MOl" secondAttribute="bottom" id="rA6-ko-84J"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="Yc1-oQ-MLq"/>
                     <connections>
                         <outlet property="menuTableView" destination="q1i-IP-15T" id="sEI-zV-oeq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KcU-Qg-va0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="972" y="-706.59670164917543"/>
+            <point key="canvasLocation" x="2850.4000000000001" y="-706.59670164917543"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -169,7 +174,7 @@
         <!--Home-->
         <scene sceneID="mOW-Vn-X0q">
             <objects>
-                <viewController id="wvi-Qn-5Ki" customClass="TweetsViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="tweetsViewController" id="wvi-Qn-5Ki" customClass="TweetsViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fyI-fX-hq6"/>
                         <viewControllerLayoutGuide type="bottom" id="wDg-y2-Enq"/>
