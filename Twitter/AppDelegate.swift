@@ -16,19 +16,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        if User.currentUser != nil {
-            print("There is a current user\n\n")
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let viewController = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")
-            self.window?.rootViewController = viewController
-        }
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: User.UserDidLogOut), object: nil, queue: OperationQueue.main) { (notification: Notification) in
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let viewController = storyboard.instantiateInitialViewController()
-            self.window?.rootViewController = viewController
-        }
+//        // Override point for customization after application launch.
+//        if User.currentUser != nil {
+//            print("There is a current user\n\n")
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            let viewController = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")
+//            self.window?.rootViewController = viewController
+//        }
+//        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: User.UserDidLogOut), object: nil, queue: OperationQueue.main) { (notification: Notification) in
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            let viewController = storyboard.instantiateInitialViewController()
+//            self.window?.rootViewController = viewController
+//        }
+        
+        //Twitter Redux Project
+        
+//        let storyboard = UIStoryboard(name:"Main", bundle: nil)
+//        let hamburgerViewController = storyboard.instantiateViewController(withIdentifier: "hamburgerViewController") as! HamburgerViewController
+//        self.window?.rootViewController = hamburgerViewController
+////        let hamburgerViewController = window?.rootViewController as! HamburgerViewController
+//        
+////        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let menuViewController = storyboard.instantiateViewController(withIdentifier: "menuViewController") as! MenuViewController
+//        menuViewController.hamburgerViewController = hamburgerViewController
+//        hamburgerViewController.menuViewController = menuViewController
+//
         return true
+
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

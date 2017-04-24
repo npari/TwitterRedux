@@ -65,13 +65,24 @@ class HamburgerViewController: UIViewController {
             
         } else if sender.state == UIGestureRecognizerState.ended {
             
-            UIView.animate(withDuration: 0.3, animations: { 
+            UIView.animate(withDuration: 0.3, delay: 0.2, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.3, options: UIViewAnimationOptions.curveEaseInOut, animations: {
                 if velocity.x > 0 {
-                    self.leftMarginConstraint.constant = self.view.frame.size.width - 50
+                    self.leftMarginConstraint.constant = self.view.frame.size.width - 200
                 } else {
                     self.leftMarginConstraint.constant = 0
                 }
+                }, completion: { (true) in
+                    
             })
+        
+            
+//            UIView.animate(withDuration: 0.3, animations: { 
+//                if velocity.x > 0 {
+//                    self.leftMarginConstraint.constant = self.view.frame.size.width - 200
+//                } else {
+//                    self.leftMarginConstraint.constant = 0
+//                }
+//            })
             
             self.view.layoutIfNeeded()
         }
