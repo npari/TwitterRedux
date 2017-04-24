@@ -40,9 +40,10 @@ class User: NSObject {
         get {
             if _currentUser == nil {
                 let defaults = UserDefaults.standard
-                let userData = defaults.object(forKey: "currentUserData") as? NSData
+                let userData = defaults.object(forKey: "currentUserData") as? Data
+                print(userData)
                 if let userData = userData {
-                    let dictionary = try! JSONSerialization.jsonObject(with: userData as Data, options: []) as! NSDictionary
+                    let dictionary = try! JSONSerialization.jsonObject(with: userData, options: []) as! NSDictionary
                     _currentUser = User(dictionary: dictionary)
                 }
             }
@@ -53,6 +54,7 @@ class User: NSObject {
             let defaults = UserDefaults.standard
             if let user = user {
                 let data = try! JSONSerialization.data(withJSONObject: user.dictionary!, options: [])
+                print(data)
                 defaults.set(data, forKey: "currentUserData")
             } else {
                 defaults.set(nil, forKey: "currentUserData")
