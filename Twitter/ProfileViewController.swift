@@ -28,6 +28,9 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet weak var followersCountLabel: UILabel!
     
+    
+    @IBOutlet weak var tweetsView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         getUserProfile()
@@ -45,6 +48,11 @@ class ProfileViewController: UIViewController {
             self.tweetsCountLabel.text = String(user.statusesCount)
             self.followingCountLabel.text = String(user.friendsCount)
             self.followersCountLabel.text = String(user.followersCount)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let tweetsViewController = storyboard.instantiateViewController(withIdentifier: "tweetsViewController") as! TweetsViewController
+            self.addChildViewController(tweetsViewController)
+            tweetsViewController.view.frame = self.tweetsView.frame
+            self.view.addSubview(tweetsViewController.view)
             }, failure: { (error: Error) in
                 print(error.localizedDescription)
         })
