@@ -12,14 +12,13 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     @IBOutlet weak var menuTableView: UITableView!
 
-    private var profileViewController: UIViewController!
+    private var profileViewController: UINavigationController!
     private var timelineViewController: UIViewController!
-    private var mentionsViewController: UIViewController!
+    private var mentionsViewController: UINavigationController!
     
     var viewControllers: [UIViewController] = []
     var hamburgerViewController: HamburgerViewController!
-//    let menuTitles = ["Profile", "Timeline", "Mentions"]
-    let menuTitles = ["Timeline", "Mentions"]
+    let menuTitles = ["Profile", "Timeline", "Mentions"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,15 +30,19 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         menuTableView.estimatedRowHeight = 120
 
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        profileViewController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController")
+        profileViewController = storyboard.instantiateViewController(withIdentifier: "ProfileNavigationViewController") as! UINavigationController
+        let profileView = profileViewController.topViewController as! ProfileViewController
+        let user = User.currentUser
+        profileView.userId = user?.id
+        profileView.screenName = user?.screenname
         timelineViewController = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")
-        let mentionsViewController = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController") as! UINavigationController
+        mentionsViewController = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController") as! UINavigationController
         let mentionsController = mentionsViewController.topViewController as! TweetsViewController
         mentionsController.mentionsView = true
 //        mentionsViewController = storyboard.instantiateViewController(withIdentifier: "tweetsViewController") as! TweetsViewController
 //        mentionsViewController.mentionsView = true
 //        loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
-//        viewControllers.append(profileViewController)
+        viewControllers.append(profileViewController)
         viewControllers.append(timelineViewController)
         viewControllers.append(mentionsViewController)
 //        viewControllers.append(loginViewController)
@@ -53,7 +56,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
